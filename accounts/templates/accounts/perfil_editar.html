@@ -1,0 +1,71 @@
+{% extends 'pages/base.html' %}
+
+{% block title %}Editar perfil | RecetasBlog{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card">
+                <div class="card-header bg-danger text-white">
+                    <h4 class="mb-0"><i class="bi bi-pencil me-2"></i>Editar perfil</h4>
+                </div>
+                <div class="card-body p-4">
+                    <form method="post" enctype="multipart/form-data" novalidate>
+                        {% csrf_token %}
+
+                        <h6 class="fw-bold text-danger mb-3">Datos personales</h6>
+                        <div class="row g-3 mb-4">
+                            <div class="col-sm-6">
+                                <label class="form-label fw-semibold">Nombre</label>
+                                {{ user_form.first_name }}
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label fw-semibold">Apellido</label>
+                                {{ user_form.last_name }}
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label fw-semibold">Email</label>
+                                {{ user_form.email }}
+                            </div>
+                        </div>
+
+                        <h6 class="fw-bold text-danger mb-3">Perfil</h6>
+                        <div class="row g-3">
+                            <div class="col-12">
+                                <label class="form-label fw-semibold">Foto de perfil</label>
+                                {% if request.user.perfil.avatar %}
+                                <div class="mb-2">
+                                    <img src="{{ request.user.perfil.avatar.url }}" alt="Avatar actual" class="rounded-circle" style="width:60px;height:60px;object-fit:cover;">
+                                    <small class="text-muted ms-2">Avatar actual</small>
+                                </div>
+                                {% endif %}
+                                {{ profile_form.avatar }}
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label fw-semibold">Fecha de nacimiento</label>
+                                {{ profile_form.fecha_nacimiento }}
+                            </div>
+                            <div class="col-sm-6">
+                                <label class="form-label fw-semibold">Sitio web / Link</label>
+                                {{ profile_form.link }}
+                            </div>
+                            <div class="col-12">
+                                <label class="form-label fw-semibold">Biografía</label>
+                                {{ profile_form.biografia }}
+                            </div>
+                        </div>
+
+                        <div class="d-flex gap-2 mt-4">
+                            <button type="submit" class="btn btn-primary">
+                                <i class="bi bi-save me-1"></i>Guardar cambios
+                            </button>
+                            <a href="{% url 'perfil' %}" class="btn btn-outline-secondary">Cancelar</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

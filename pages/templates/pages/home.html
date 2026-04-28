@@ -1,0 +1,66 @@
+{% extends 'pages/base.html' %}
+
+{% block title %}Inicio | RecetasBlog{% endblock %}
+
+{% block content %}
+<section class="hero text-center">
+    <div class="container">
+        <h1 class="display-4 fw-bold mb-3"><i class="bi bi-egg-fried me-2"></i>RecetasBlog</h1>
+        <p class="lead mb-4">Descubrí, compartí y explorá recetas deliciosas</p>
+        <div class="d-flex justify-content-center gap-3 flex-wrap">
+            <a href="{% url 'receta_list' %}" class="btn btn-light btn-lg">
+                <i class="bi bi-book me-1"></i>Ver todas las recetas
+            </a>
+            {% if user.is_authenticated %}
+            <a href="{% url 'receta_crear' %}" class="btn btn-outline-light btn-lg">
+                <i class="bi bi-plus-circle me-1"></i>Publicar receta
+            </a>
+            {% else %}
+            <a href="{% url 'registro' %}" class="btn btn-outline-light btn-lg">
+                <i class="bi bi-person-plus me-1"></i>Unirme al blog
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</section>
+
+<section class="py-5">
+    <div class="container">
+        <div class="d-flex justify-content-between align-items-center mb-4">
+            <h2 class="fw-bold">Últimas recetas</h2>
+            <a href="{% url 'receta_list' %}" class="btn btn-outline-primary">Ver todas</a>
+        </div>
+
+        {% if ultimas_recetas %}
+        <div class="row g-4">
+            {% for receta in ultimas_recetas %}
+            <div class="col-md-6 col-lg-4">
+                <div class="card h-100">
+                    {% if receta.imagen %}
+                    <img src="{{ receta.imagen.url }}" class="card-img-top" alt="{{ receta.titulo }}" style="height:180px;object-fit:cover;border-radius:12px 12px 0 0;">
+                    {% endif %}
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="badge badge-{{ receta.dificultad }} text-white">{{ receta.get_dificultad_display }}</span>
+                            <small class="text-muted">{{ receta.fecha|date:"d/m/Y" }}</small>
+                        </div>
+                        <h5 class="card-title">{{ receta.titulo }}</h5>
+                        <p class="card-text text-muted small">{{ receta.subtitulo|truncatewords:18 }}</p>
+                    </div>
+                    <div class="card-footer bg-transparent d-flex justify-content-between align-items-center">
+                        <small class="text-muted"><i class="bi bi-person me-1"></i>{{ receta.autor.username }}</small>
+                        <a href="{% url 'receta_detalle' receta.pk %}" class="btn btn-sm btn-primary">Leer más</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="text-center py-5 text-muted">
+            <i class="bi bi-journal-x fs-1 d-block mb-3"></i>
+            <p>No hay páginas aún. {% if user.is_authenticated %}<a href="{% url 'receta_crear' %}">¡Publicá la primera!</a>{% endif %}</p>
+        </div>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
