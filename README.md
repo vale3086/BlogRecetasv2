@@ -3,7 +3,7 @@
 Blog de recetas desarrollado con **Django** como proyecto final del curso de CoderHouse.
 
 **Autora:** Valeria Castillo  
-**Repositorio:** `TuPrimeraPaginaFinal-Castillo`
+**Repositorio:** `TuPrimeraPaginaFinal-Castillo`  
 **Demo:** https://www.loom.com/share/2cb5aaad856a42b4b51dd121441a5de6 
 
 ---
