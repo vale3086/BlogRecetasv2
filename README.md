@@ -1,4 +1,4 @@
-# TuPrimeraPaginaFinal-Castillo
+# BlogRecetas-Castillo
 
 Blog de recetas desarrollado con **Django** como proyecto final del curso de CoderHouse.
 
